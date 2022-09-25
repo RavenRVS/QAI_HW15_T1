@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,10 +27,13 @@ class GameTest {
     @Test
     void register() {
 
-        ArrayList<Player> expected = new ArrayList<>(Arrays.asList(player1,player2,player3));
-        ArrayList<Player> actual = game.getPlayerList();
+        HashMap<String, Player> expected = new HashMap<>();
+        expected.put(player1.name, player1);
+        expected.put(player2.name, player2);
+        expected.put(player3.name, player3);
+        HashMap<String, Player> actual = game.getPlayerList();
 
-        Assertions.assertIterableEquals(expected, actual);
+        Assertions.assertTrue(expected.equals(actual));
     }
 
     @Test
