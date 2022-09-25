@@ -1,39 +1,28 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
 
-    ArrayList<Player> playerList = new ArrayList<>();
+    HashMap<String, Player> playerList = new HashMap<>();
 
     public void register(Player player){
-        playerList.add(player);
+        playerList.put(player.name, player);
     }
 
     public int round(String playerName1, String playerName2){
-        Player player1 = findById(playerName1);
-        Player player2 = findById(playerName2);
-        if (player1 == null) {
+        if (!playerList.containsKey(playerName1)) {
             throw new NotRegisteredException("Element with name: " + playerName1 + " not found");
-        } else if (player2 == null) {
+        } else if (!playerList.containsKey(playerName2)) {
             throw new NotRegisteredException("Element with name: " + playerName2 + " not found");
         }
-        if (player1.strength > player2.strength) {
+        if (playerList.get(playerName1).strength > playerList.get(playerName2).strength) {
             return 1;
-        } else if (player1.strength < player2.strength) {
+        } else if (playerList.get(playerName1).strength < playerList.get(playerName2).strength) {
             return 2;
         }
         return 0;
     }
 
-    public Player findById(String playerName) {
-        for (Player player : playerList) {
-            if (player.name == playerName) {
-                return player;
-            }
-        }
-        return null;
-    }
-
-    public ArrayList<Player> getPlayerList() {
+    public HashMap<String, Player> getPlayerList() {
         return playerList;
     }
 }
